@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">	
+  </head>
+  <body>
+    <br>
+	<div style='margin-left: 60px'>
+	
+		<h3> ROTINA PARA LISTAR ARQUIVOS DO GOOGLE DRIVE EM PLANÍLIA DO GOOGLE SHEET</h3>
+		<br>
+		<ul>
+			<li>
+				<a href="https://chester1978.github.io/LINK-GS-GDRIVE/link-gdrive_v1_0.txt">ARQUIVO COM CÓDIGO</a>
+			</li>
+			<br>
+			<li>
+				<a href="https://www.youtube.com/watch?v=H20fxVYiaQw">VÍDEO EXPLICANDO COMO UTILIZAR</a>
+			</li>
+		</ul>
+		<br>
+		<p>Essa rotina acrescenta a funcionalidade de permitir listar conteúdo de pastas do Google Drive em planilhas do Google Sheet.</p>
+		
+		<p>O código está compilado com uma ferramenta do Google (Closure Compiler) que permite compactar ao máximo o código, otimizando a performance.</p>
+		
+		<p>O usuário logado na planilha deve possuir acesso para a pasta do google drive. Essa rotina não se comunica com nada externo, apenas disponibiliza a funcionalidade com recursos do Google Script (similar a um VBA).</p>
+		
+		<p>Para utilizar a rotina basta criar uma ou mais funções que chamem  essa função: <b> LINK_GDRIVE( pastaID , range, exclui_linha, filtro_pasta ) </b> </p>
+		
+		<div style='margin-left: 20px'>
+			<p><b>pastaID:</b>  ID da pasta raiz a ser listada. No link <a href="https://drive.google.com/drive/folders/1B1cr4BsAC2h-C-sz8VL5Rv3K8oyNBmw1">https://drive.google.com/drive/folders/1B1cr4BsAC2h-C-sz8VL5Rv3K8oyNBmw1</a> 
+			corresponde a  <b>"1B1cr4BsAC2h-C-sz8VL5Rv3K8oyNBmw1". </b>  </p>
+			
+			<p><b>range:</b> Intervalo do cabeçalho onde será gravado os dados no formato: <b>"'NOME DA PLANILHA'!B2:D2"</b>    </p>
+			
+			<p><b>exclui_linha:</b>  Parâmetro opcional <b>true</b> / <b>false</b>. Caso o arquivo seja excluído do Google Drive, excluir a linha de forma automática? <br><br>Essa rotina não exclui arquivos, apenas o 
+			os registros na planilha quando a opção estiver ativa. Também faz o mesmo para itens duplicados. </p>
+		
+			<p><b>filtro_pasta:</b>  Parâmetro opcional. Opção para otimizar perfomance, atualizando apenas registros de um subdiretório. Os demais itens ficam inalterados em atualizações parciais.<br>
+			A ideia de atualizações parciais está em permitir, como exemplo, atualizar registros do mês corrente, sem precisar ler todos os meses. Isso no caso de que o controle seja feito com uma subpasta para cada mês.
+			</p>		
+		</div>
+		
+		<p>Ao rodar pela primeira vez, a própria rotina já cria 3 colunas: <b>PASTA,DATA,LINK</b>:</p>
+
+		<div style='margin-left: 20px'>
+			<p><b>PASTA:</b> mostra o caminho do arquivo, se estiver em alguma subpasta. Se estiver na pasta raiz fica em branco.</p>
+			
+			<p><b>DATA:</b> data de modificação do arquivo, conforme conste no GDrive.</p>
+			
+			<p><b>LINK:</b> link para acesso ao arquivo - clicando com o mouse ou selecionar célula e clicando ALT+ENTER.</p>
+			
+			<p>Depois de criada a planilha é de livre edição. A ordem dos campos não importa (pode ser alterada) e podem ser criados quantos campos a mais forem necessários. <br> 
+			As atualizações preservam os dados. O único cuidado é de não deixar um "buraco" nas colunas. Enquanto houver nome das colunas, a rotina detecta que fazem parte da mesma tabela. </p>
+			
+			<p>O código presente no <a href="https://chester1978.github.io/LINK-GS-GDRIVE/link-gdrive_v1_0.txt">arquivo</a> precisa ser incluído apenas uma vez por planilha do Google Sheets, mas pode ser usado 
+			quantas vezes forem necessárias. Basta criar diferentes rotinas vinculado as pastas aos locais / difrentes abas,  onde se queira listar os arquivos.</p>
+			
+			<p> Para execução da rotina é possível criar botões ou fazer a interação através de menu. No vídeo eu mostro como criar botões e no arquivo de código tem o modelo para criação de menus </p>
+			
+			<p>Caso precise de maiores explicações, tenha sugestões ou queira reportar algum bug, meu contato é <a href="mailto:c.chester.cury@gmail.com">chester</a>.</p>
+
+			<p>Caso essa rotina tenha  serventia fico grato se quiserem dar um retorno. Quanto a solicitações, atenderei dentro de minhas possibilidades.</p>
+			
+			
+		</div>		
+		
+	
+	</div>
+	
+    
+	
+  </body>
+</html>

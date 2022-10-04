@@ -1,0 +1,46 @@
+/*
+
+function onOpen() {
+  var ui = SpreadsheetApp.getUi();
+  ui.createMenu('LINK GDRIVE')
+      .addItem('ATU EXTRATOS', 'MACRO_EXTRATOS')
+      //.addItem('ATU RESUMO CAIXA', 'MACRO_RESUMO_CAIXA')
+      //.addSeparator()
+      //.addSubMenu(ui.createMenu('ATUALIZAR').addItem('EXTRATOS', 'EXTRATOS'))
+      .addToUi();
+}
+
+function MACRO_EXTRATOS(){  
+  LINK_GDRIVE('zzzzzzzz_zzz-zzzzzz-zzzzzzzzzzzzzz',"'EXTRATO'!B4",true,'');
+}
+*/
+
+/**
+ * @param {string} pastaID          id da pasta do Google Drive.  '15abORHSM5Ith5Ftn7wFWXsVlSjTUXzCQ' do link  https://drive.google.com/drive/folders/15abORHSM5Ith5Ftn7wFWXsVlSjTUXzCQ
+ * @param {string} range            formato: "'PLANILHA ABC'!B4:D4"
+ * @param {boolean=} exclui_linha   excluir linha da planilha de arquivo apagado do Gdrive ou item duplicado? Essa rotina apaga apenas a linha na planilha. Não apaga arquivo nenhum  
+ * @param {string=} filtro_pasta    opção para fazer atualizações parciais (mais rápidas) nome de subpasta
+ */
+function LINK_GDRIVE( pastaID , range, exclui_linha, filtro_pasta ) { __link_gdrive(pastaID,range,exclui_linha,filtro_pasta);}
+(function(){/*
+
+ ROTINA DESENVOLVIDA POR CHRISTOPH CHESTER CURY  E-MAIL: c.chester.cury@gmail.com
+ OUTUBRO 2022
+
+ Copyright The Closure Library Authors.
+ SPDX-License-Identifier: Apache-2.0
+*/
+var k=this||self;function p(a,c){a=a.split(".");var d=k;a[0]in d||"undefined"==typeof d.execScript||d.execScript("var "+a[0]);for(var b;a.length&&(b=a.shift());)a.length||void 0===c?d[b]&&d[b]!==Object.prototype[b]?d=d[b]:d=d[b]={}:d[b]=c};const r=SpreadsheetApp,t=DriveApp;function u(a,c){let d=c.getMaxRows();if(!b)var b=a.h;if(c.getRange(d,a.i,1,a.j).getValues()[0].reduce((e,g)=>g!==v?!0:e,!1))return d;for(let e=0;e<a.j;e++){let g=c.getRange(d,a.i+e).getNextDataCell(r.Direction.UP).getRow();b=b<g?g:b}return b}function w(a,c){return c.getRange(a.h,a.i,a.g,a.j)}class x{set s(a){throw Error("nset");}get s(){return this.h+this.g-1}set l(a){throw Error("nset");}get l(){return this.i+this.j-1}}class y{}var v="";
+function z(a){let c=0,d=a.length;for(let b=0;b<d;b++)c+=Math.pow(26,b),c+=(a.charCodeAt(b)-64-1)*Math.pow(26,d-1-b);return c}
+class A{constructor(a,c){this.g=null;if("string"===typeof a){try{var d=t.getFolderById(a)}catch{d=null}this.g=d}else this.g=a;this.name=this.g?this.g.getName():"";this.i=c}get j(){return this.i?this.i.j+1:0}get h(){return 0===this.j?"":(1<this.j?this.i.h+"\\":"")+this.name}get id(){this.l||(this.l=this.g.getId());return this.l}get size(){this.m||(this.m=this.g.getSize());return this.m}}
+class B{constructor(a,c){this.o=c;this.g=a}get id(){this.h||(this.h=this.g.getId());return this.h}get name(){this.m||(this.m=this.g.getName());return this.m}get size(){this.j||(this.j=this.g.getSize());return this.j}get l(){this.i||(this.i=this.g.getLastUpdated());return this.i}}function C(a,c){if(!a)return!0;a=a.toUpperCase().split("\\");c=(c?c:"").toUpperCase().split("\\");for(let d=0;d<a.length;d++){if(!a[d]||!c[d])return;if(c[d]!==a[d])return!1}return!0}
+function D(a,c,d,b,e){e=e?e:0;var g=d?C(d,c.h):!0;if(!1!==g&&(!0===g&&a.push(c),!(b&&e+1>b)))for(g=c.g.getFolders();g.hasNext();){let f=new A(g.next(),c);D(a,f,d,e+1,b)}}function E(a,c){let d=[];a=new A(a);D(d,a,c,void 0);c=[];for(a=0;a<d.length;a++){let b=d[a],e=b.g.getFiles();for(;e.hasNext();)c.push(new B(e.next(),b))}return c};class F{}p("eventEdit$$module$src$gsheet$evento",F);p("__link_gdrive",G);function G(a,c,d,b){let e=r.getActiveSpreadsheet();H(new I(e,a,c,d,b))}
+function H(a){var c=E(a.F,a.A);class d{constructor(){this.h=0<a.g.g?a.G:[];this.g=a.o;this.i=[];this.j=[];const m=/\/d\/(.*)\//g;for(let q=0;q<this.g.length;q++){var l=this.g[q][0].getText();this.j.push(l);l=(l=this.g[q][0].getLinkUrl())?Array.from(l.matchAll(m))[0]:null;this.i.push(l?l[1]:"")}}}let b=new d;for(var e=0;e<c.length;e++){var g=!0,f=c[e];for(var h=0;h<b.h.length;h++)if(b.i[h]===f.id){J(a,b.h[h],f);if(b.j[h]!==f.name){g=f.name;var n=`drive.google.com/file/d/${f.id}/view`;g=r.newRichTextValue().setText(g).setLinkUrl(n).build();
+b.g[h][0]=g}g=!1;break}if(g){b.i.push(f.id);b.j.push(f.name);h=[];for(g=0;g<a.j.j;g++)h[g]=null;J(a,h,f);b.h.push(h);h=f.name;f=`drive.google.com/file/d/${f.id}/view`;f=r.newRichTextValue().setText(h).setLinkUrl(f).build();b.g.push([f])}}f=[];e=b.h.length;for(h=0;h<e;h++)if(C(a.A,b.h[h][0])){g=b.i[h];n=!1;for(let m=0;m<c.length;m++)if(c[m].id===g){n=!0;break}!n||f.includes(g)?a.D?(b.h.splice(h,1),b.i.splice(h,1),b.g.splice(h,1),e--,h--):(g=r.newTextStyle().setUnderline(!1).setForegroundColor("TEXT").build(),
+b.g[h][0]=r.newRichTextValue().setText(b.j[h]).setTextStyle(g).build()):n&&f.push(g)}c=a.g.g-e;a.g.g=e;0<c&&a.h.deleteRows(a.g.s+1,c);a.g.g=e;0<a.g.g&&(a.s=w(a.g,a.h),a.s.setValues(b.h),a.o=b.g)}
+function K(a){a.l=a.v.map(b=>{for(let e=0;e<a.i[0].length;e++)if(a.i[0][e]===b)return e;return-1});let c=a.l.reduce((b,e)=>b+(0<=e?0:1),0),d=a.i[0].reduce((b,e)=>b+(e==v?1:0),0);if(0<c-d)for(let b=0;b<c-d;b++)a.h.insertColumnAfter(a.j.l),a.j.j++,a.i[0].push("");a.l=a.l.map((b,e)=>{if(0<=b)return b;for(b=0;b<a.i[0].length;b++)if(a.i[0][b]===v)return a.i[0][b]=a.v[e],b});0<c&&(a.m=w(a.j,a.h),a.m.setValues(a.i).setBorder(!0,!0,!0,!0,!0,!0).setBackground("#f9cb9c"),a.m.setValues(a.i))}
+function J(a,c,d){c[a.B]!==d.l&&(c[a.B]=d.l);c[a.u]!==d.o.h&&(c[a.u]=d.o.h)}
+class I{constructor(a,c,d,b,e){a:{let f=new y;if(g)f.h=d;else{d=Array.from(d.matchAll(/(.*)!(.*)/g));if(!d.length){a=f;break a}d=d[0];f.h=d[1].replaceAll('"',"").replaceAll("'","");var g=d[2]}f.g=a.getSheetByName(f.h);f.g||(f.g=a.insertSheet(f.h));f.i=f.g.getRange(g);a=f}this.F=c;this.D=b;this.h=a.g;b=a.i.getDataRegion().getDataSourceUrl();c=new x;b=Array.from(b.matchAll(/gid=(\d+)&range=([A-Z]+)(\d+):?([A-Z]*)(\d*)/g))[0];c.m=b[0];c.o=parseInt(b[1],10);c.i=z(b[2]);c.h=parseInt(b[3],10);0===b[4].length?
+c.g=c.j=1:(c.j=z(b[4])-c.i+1,c.g=parseInt(b[5],10)-c.h+1);this.j=c;this.j.g=1;this.m=w(this.j,this.h);this.i=this.m.getValues();this.A=e;this.v=["PASTA","DATA","LINK"];this.l=[];K(this);e=this.j;c=new x;c.m=e.m;c.o=e.o;c.i=e.i;c.j=e.j;c.h=e.h;c.g=e.g;this.g=c;this.g.h++;e=this.g;c=this.j;b=this.h;b.getLastRow();c=u(c,b)-c.h;e.g=0>c?0:c;0<this.g.g&&(this.s=w(this.g,this.h),this.G=this.s.getValues())}get B(){return this.l[1]}get u(){return this.l[0]}get C(){return this.l[2]}get o(){return 1>this.g.g?
+[]:this.h.getRange(this.g.h,this.g.i+this.C,this.g.g,1).getRichTextValues()}set o(a){0<a.length&&this.h.getRange(this.g.h,this.g.i+this.C,a.length,1).setRichTextValues(a)}};}).call(this);
+
